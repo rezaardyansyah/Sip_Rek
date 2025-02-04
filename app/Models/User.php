@@ -18,9 +18,15 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
+        'username',
         'email',
         'password',
+        'phone_number',
+        'role_id_role',
+        'position_id_position',
+        'divisi_id_divisi',
     ];
 
     /**
@@ -44,5 +50,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Relasi ke Role
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id_role');
+    }
+
+    // Relasi ke Division
+    public function division()
+    {
+        return $this->belongsTo(Division::class, 'divisi_id_divisi');
+    }
+
+    // Relasi ke Position
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'position_id_position');
     }
 }

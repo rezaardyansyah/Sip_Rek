@@ -13,10 +13,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('firstname', 50);
+            $table->string('lastname', 50);
+            $table->string('username', 255)->unique();
+            $table->string('email', 255)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->bigInteger('phone_number')->nullable();
+            $table->foreignId('role_id_role')->constrained('roles', 'id_role')->onDelete('cascade');
+            $table->foreignId('position_id_position')->constrained('positions', 'id_position')->onDelete('cascade');
+            $table->foreignId('divisi_id_divisi')->constrained('divisions', 'id_divisi')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -47,3 +53,4 @@ return new class extends Migration
         Schema::dropIfExists('sessions');
     }
 };
+
